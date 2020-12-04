@@ -36,8 +36,28 @@
     window.addEventListener("load", function(){
 		// TODO: register the handler
 		let searchFormSubmit = document.getElementById("searchForm");
+		let radioChoice = document.getElementsByName("engine");
+		let searchBox = document.querySelector("input[name=q]")
+		let oneChecked = false;
 		searchFormSubmit.addEventListener("submit", function(event){
-			searchFormSubmit.setAttribute("action", setSearchEngine());
+			for(let i = 0; i < radioChoice.length; ++i){
+				if(radioChoice[i].checked){
+					oneChecked = true;
+				}
+			}
+
+			if(oneChecked === false){
+				alert("Must choose a search engine!");
+				event.preventDefault();
+			}
+
+			else if(searchBox.value === ""){
+				alert("Must provide a search!");
+				event.preventDefault();
+			}
+			else{
+				searchFormSubmit.setAttribute("action", setSearchEngine());
+			}
 		});
     });
 	</script>
@@ -48,10 +68,10 @@
 <form id="searchForm" method="GET" style="display: flex; justify-content: center; align-items: center; height: 200px;">
 	<!-- TODO: add form elements -->
 	<input type="text" name="q" id="inputBox" placeholder="Search anything!"/>
-	<label class="container">Google<input type="radio" name="engine" value="google"/></label>
-	<label class="container">DuckDuckGo<input type="radio" name="engine" value="duckduckgo"/></label>
-	<label class="container">Bing<input type="radio" name="engine" value="bing"/></label>
-	<label class="container">Ask<input type="radio" name="engine" value="ask"/></label>
+	<label>Google<input type="radio" name="engine" value="google"/></label>
+	<label>DuckDuckGo<input type="radio" name="engine" value="duckduckgo"/></label>
+	<label>Bing<input type="radio" name="engine" value="bing"/></label>
+	<label>Ask<input type="radio" name="engine" value="ask"/></label>
 	<button value="Go!" class="button">Submit</button>
 </form>
 
